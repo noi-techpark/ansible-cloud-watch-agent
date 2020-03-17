@@ -1,10 +1,4 @@
 ---
-- name: Check if CloudWatch agent is already installed
-  stat:
-    path: /opt/aws/amazon-cloudwatch-agent
-  register: cloud_watch_agent_installation
-
 - include_tasks: "install.yml"
-  when: cloud_watch_agent_installation.stat.exists == False
 
 - include_tasks: "configure.yml"
