@@ -1,0 +1,3 @@
+---
+- name: Fetch the config and start the CloudWatch agent
+  shell: amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:{{ cloud_watch_agent_ssm_config }} -s

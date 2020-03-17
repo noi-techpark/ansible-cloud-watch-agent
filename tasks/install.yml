@@ -1,0 +1,38 @@
+---
+- name: Download Debian/Ubuntu package
+  get_url:
+    url: https://s3.amazonaws.com/amazoncloudwatch-agent/{{ ansible_distribution | lower }}/amd64/latest/amazon-cloudwatch-agent.deb
+    dest: /tmp/amazon-cloudwatch-agent.deb
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  
+- name: Download CentOS/RedHat package
+  get_url:
+    url: https://s3.amazonaws.com/amazoncloudwatch-agent/{{ ansible_distribution | lower }}/amd64/latest/amazon-cloudwatch-agent.rep
+    dest: /tmp/amazon-cloudwatch-agent.rep
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+  
+- name: Download Amazon package
+  get_url:
+    url: https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rep
+    dest: /tmp/amazon-cloudwatch-agent.rep
+  when: ansible_distribution == 'Amazon'
+
+- name: Install Debian/Ubuntu package
+  shell: dpkg -i -E /tmp/amazon-cloudwatch-agent.deb
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install CentOS/RedHat/Amazon package
+  shell: rpm -U /tmp/amazon-cloudwatch-agent.rep
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Amazon'
+
+- name: Delete Debian/Ubuntu package
+  file:
+    path: /tmp/amazon-cloudwatch-agent.deb
+    state: absent
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Delete CentOS/RedHat/Amazon package
+  file:
+    path: /tmp/amazon-cloudwatch-agent.rep
+    state: absent
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Amazon'
