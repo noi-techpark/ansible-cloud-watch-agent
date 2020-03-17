@@ -5,6 +5,6 @@
   register: cloud_watch_agent_installation
 
 - include_tasks: "install.yml"
-  when: cloud_watch_agent_installation.stats.exists == False
+  when: cloud_watch_agent_installation.stat.exists == False
 
 - include_tasks: "configure.yml"
