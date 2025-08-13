@@ -1,3 +1,5 @@
+[![REUSE Compliance](https://github.com/noi-techpark/ansible-cloud-watch-agent/actions/workflows/reuse.yml/badge.svg)](https://github.com/noi-techpark/opendatahub-docs/wiki/REUSE#badges)
+
 Ansible Cloud Watch Agent Role
 ==============================
 
